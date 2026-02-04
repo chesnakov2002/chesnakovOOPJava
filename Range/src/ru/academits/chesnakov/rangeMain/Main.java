@@ -30,9 +30,10 @@ public class Main {
         Range[] rangesArray1 = range1.getUnion(range4);
         System.out.println(Arrays.toString(rangesArray1));
 
-        Range range5 = new Range(11, 22);
+        Range range5 = new Range(15, 25);
 
         Range[] rangesArray2 = range4.getDifference(range5);
         System.out.println(Arrays.toString(rangesArray2));
+
     }
 }

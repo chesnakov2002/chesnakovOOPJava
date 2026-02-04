@@ -15,10 +15,7 @@ public class Range {
 
     @Override
     public String toString() {
-        return "Range{" +
-                "from = " + from +
-                ", to = " + to +
-                '}';
+        return "Range{" + "from = " + from + ", to = " + to + '}';
     }
 
     public void setTo(double to) {
@@ -58,8 +55,7 @@ public class Range {
 
     public Range[] getUnion(Range range) {
         if (this.getTo() < range.getFrom() || this.getFrom() > range.getTo()) {
-            return new Range[]{new Range(this.getFrom(), this.getTo()),
-                    new Range(range.getFrom(), range.getTo())};
+            return new Range[]{new Range(this.getFrom(), this.getTo()), new Range(range.getFrom(), range.getTo())};
         }
 
         double minFrom = Math.min(this.getFrom(), range.getFrom());
@@ -69,16 +65,24 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        if (this.getFrom() == range.getFrom() && this.getTo() == range.getTo()) {
+        if (this.getIntersection(range) == null) {
+            return new Range[]{this};
+        }
+
+        if (this.getFrom() >= range.getFrom() && this.getTo() <= range.getTo()) {
             return new Range[]{};
         }
 
-        if (this.getFrom() >= range.getTo() || this.getTo() <= range.getFrom()) {
-            return new Range[]{new Range(this.getFrom(), this.getTo()),
-                    new Range(range.getFrom(), range.getTo())};
+        if (this.getFrom() >= range.getFrom() && this.getTo() > range.getTo()) {
+            return new Range[]{new Range(range.getTo(), this.getTo())};
         }
 
-        return new Range[]{new Range(this.getFrom(), this.getTo()),
-                new Range(range.getFrom(), range.getTo())};
+        if (this.getFrom() < range.getFrom() && this.getTo() <= range.getTo()) {
+            return new Range[]{new Range(this.getFrom(), range.getFrom())};
+        }
+
+        Range intersectionRange = this.getIntersection(range);
+
+        return new Range[]{new Range(this.getFrom(), intersectionRange.getFrom()), new Range(intersectionRange.getTo(), this.getTo())};
     }
 }

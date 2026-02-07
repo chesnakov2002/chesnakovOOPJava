@@ -1,4 +1,4 @@
-package ru.academits.chesnakov.rangeMain;
+package ru.academits.chesnakov.range_main;
 
 import ru.academits.chesnakov.range.Range;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         Range range1 = new Range(1.1, 3.3);
-        Range range2 = new Range(1, 6.5);
+        Range range2 = new Range(5, 9);
 
         range1.setFrom(1);
         range1.setTo(8);
@@ -15,7 +15,7 @@ public class Main {
         System.out.println(range1.getFrom());
         System.out.println(range1.getTo());
 
-        System.out.println(range1.getRangeLength());
+        System.out.println(range1.getLength());
 
         System.out.println(range1.isInside(1));
         System.out.println(range2.isInside(5));
@@ -34,6 +34,5 @@ public class Main {
 
         Range[] rangesArray2 = range4.getDifference(range5);
         System.out.println(Arrays.toString(rangesArray2));
-
     }
 }

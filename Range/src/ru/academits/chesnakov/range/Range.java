@@ -35,7 +35,7 @@ public class Range {
     }
 
     public boolean isInside(double number) {
-        return number <= to && number >= from;
+        return number >= from && number <= to;
     }
 
     public Range getIntersection(Range range) {
@@ -61,10 +61,7 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        double maxFrom = Math.max(from, range.from);
-        double minTo = Math.min(to, range.to);
-
-        if (maxFrom >= minTo) {
+        if (from >= range.to || to <= range.from) {
             return new Range[]{new Range(from, to)};
         }
 

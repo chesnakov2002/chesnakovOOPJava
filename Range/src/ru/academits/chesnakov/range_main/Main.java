@@ -19,20 +19,20 @@ public class Main {
         System.out.println("Число \"1\" входит в отрезок 1 = " + range1.isInside(1));
         System.out.println("Число \"5\" входит в отрезок 1 = " + range2.isInside(5));
 
-        Range intersectionRange = range1.getIntersection(range2);
+        Range intersection = range1.getIntersection(range2);
 
-        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет from = " + intersectionRange.getFrom());
-        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет to = " + intersectionRange.getTo());
+        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет from = " + intersection.getFrom());
+        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет to = " + intersection.getTo());
         System.out.println("Диапазон пересечения отрезков 1 и 2 имеет длину = " + range1.getLength());
 
-        Range range4 = new Range(11, 33);
+        Range range3 = new Range(11, 33);
 
-        Range[] unionArray = range1.getUnion(range4);
-        System.out.println("Массив объединения отрезков 1 и 4 = " + Arrays.toString(unionArray));
+        Range[] union = range1.getUnion(range3);
+        System.out.println("Массив объединения отрезков 1 и 4 = " + Arrays.toString(union));
 
-        Range range5 = new Range(15, 25);
+        Range range4 = new Range(35, 125);
 
-        Range[] differenceRange = range4.getDifference(range5);
-        System.out.println("Массив разности отрезков 4 и 5 = " + Arrays.toString(differenceRange));
+        Range[] difference = range3.getDifference(range4);
+        System.out.println("Массив разности отрезков 4 и 5 = " + Arrays.toString(difference));
     }
 }

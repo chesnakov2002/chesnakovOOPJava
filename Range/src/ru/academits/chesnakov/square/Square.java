@@ -1,0 +1,31 @@
+package ru.academits.chesnakov.square;
+
+import ru.academits.chesnakov.shape.Shape;
+
+public class Square implements Shape {
+    private double side;
+
+    public Square(double side) {
+        this.side = side;
+    }
+
+    @Override
+    public double getWidth() {
+        return side;
+    }
+
+    @Override
+    public double getHeight() {
+        return side;
+    }
+
+    @Override
+    public double getArea() {
+        return side * side;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return side * 4;
+    }
+}

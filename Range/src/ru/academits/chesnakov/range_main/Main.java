@@ -25,14 +25,14 @@ public class Main {
         System.out.println("Диапазон пересечения отрезков 1 и 2 имеет to = " + intersection.getTo());
         System.out.println("Диапазон пересечения отрезков 1 и 2 имеет длину = " + range1.getLength());
 
-        Range range3 = new Range(11, 33);
+        Range range3 = new Range(1, 13);
 
         Range[] union = range1.getUnion(range3);
-        System.out.println("Массив объединения отрезков 1 и 4 = " + Arrays.toString(union));
+        System.out.println("Массив объединения отрезков 1 и 3 = " + Arrays.toString(union));
 
-        Range range4 = new Range(35, 125);
+        Range range4 = new Range(5, 39);
 
         Range[] difference = range3.getDifference(range4);
-        System.out.println("Массив разности отрезков 4 и 5 = " + Arrays.toString(difference));
+        System.out.println("Массив разности отрезков 3 и 4 = " + Arrays.toString(difference));
     }
 }

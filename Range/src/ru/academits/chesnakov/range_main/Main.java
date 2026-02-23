@@ -7,10 +7,10 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         Range range1 = new Range(1.1, 3.3);
-        Range range2 = new Range(5, 9);
+        Range range2 = new Range(1, 3);
 
-        range1.setFrom(1);
-        range1.setTo(8);
+        range1.setFrom(0);
+        range1.setTo(0);
 
         System.out.println("Отрезок 1 имеет from = " + range1.getFrom());
         System.out.println("Отрезок 1 имеет to = " + range1.getTo());
@@ -21,9 +21,13 @@ public class Main {
 
         Range intersection = range1.getIntersection(range2);
 
-        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет from = " + intersection.getFrom());
-        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет to = " + intersection.getTo());
-        System.out.println("Диапазон пересечения отрезков 1 и 2 имеет длину = " + range1.getLength());
+        if (intersection == null) {
+            System.out.println("Отрезки 1 и 2 не пересекаются");
+        } else {
+            System.out.println("Диапазон пересечения отрезков 1 и 2 имеет from = " + intersection.getFrom());
+            System.out.println("Диапазон пересечения отрезков 1 и 2 имеет to = " + intersection.getTo());
+            System.out.println("Диапазон пересечения отрезков 1 и 2 имеет длину = " + intersection.getLength());
+        }
 
         Range range3 = new Range(1, 13);
 

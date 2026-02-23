@@ -30,4 +30,9 @@ public class Rectangle implements Shape {
     public double getPerimeter() {
         return (width + height) * 2;
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle{width = " + width + ", height = " + height + "}";
+    }
 }

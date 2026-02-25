@@ -78,6 +78,5 @@ public class Main {
         System.out.println("Площадь второй по величине периметра фигуры = " + secondMaxPerimeterShape.getArea());
         System.out.println("Периметр второй по величине периметра фигуры = " + secondMaxPerimeterShape.getPerimeter());
         System.out.println("Тип объекта большей по площади фигуры = " + secondMaxPerimeterShape.getClass());
-
     }
 }

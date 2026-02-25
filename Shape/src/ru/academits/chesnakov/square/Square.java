@@ -2,6 +2,8 @@ package ru.academits.chesnakov.square;
 
 import ru.academits.chesnakov.shape.Shape;
 
+import java.util.Objects;
+
 public class Square implements Shape {
     private double side;
 
@@ -31,6 +33,22 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Square{side=" + side + "}";
+        return "Square{side=" + side + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Square square = (Square) o;
+        return Double.compare(side, square.side) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 37;
+        int hash = 1;
+        hash = (int) (prime * hash + side);
+        return hash;
     }
 }

@@ -1,6 +1,4 @@
-package ru.academits.chesnakov.square;
-
-import ru.academits.chesnakov.shape.Shape;
+package ru.academits.chesnakov.shapes;
 
 import java.util.Objects;
 
@@ -8,6 +6,14 @@ public class Square implements Shape {
     private double side;
 
     public Square(double side) {
+        this.side = side;
+    }
+
+    public double setSide() {
+        return side;
+    }
+
+    public void setSide(double side) {
         this.side = side;
     }
 
@@ -38,17 +44,19 @@ public class Square implements Shape {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Square square = (Square) o;
-        return Double.compare(side, square.side) == 0;
+        return side == square.side;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 37;
-        int hash = 1;
-        hash = (int) (prime * hash + side);
-        return hash;
+        return Double.hashCode(side);
     }
 }

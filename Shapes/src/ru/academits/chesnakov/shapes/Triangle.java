@@ -1,6 +1,4 @@
-package ru.academits.chesnakov.triangle;
-
-import ru.academits.chesnakov.shape.Shape;
+package ru.academits.chesnakov.shapes;
 
 import java.util.Objects;
 
@@ -13,7 +11,7 @@ public class Triangle implements Shape {
     private double y3;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
-        double epsilon = 1e-10;
+        final double epsilon = 1e-10;
 
         if (Math.abs((x1 - x2) * (y1 - y3) - (x1 - x3) * (y1 - y2)) <= epsilon) {
             throw new IllegalArgumentException("Точки лежат на одной прямой");
@@ -24,6 +22,54 @@ public class Triangle implements Shape {
         this.x2 = x2;
         this.y2 = y2;
         this.x3 = x3;
+        this.y3 = y3;
+    }
+
+    public double getX1() {
+        return x1;
+    }
+
+    public void setX1(double x1) {
+        this.x1 = x1;
+    }
+
+    public double getY1() {
+        return y1;
+    }
+
+    public void setY1(double y1) {
+        this.y1 = y1;
+    }
+
+    public double getX2() {
+        return x2;
+    }
+
+    public void setX2(double x2) {
+        this.x2 = x2;
+    }
+
+    public double getY2() {
+        return y2;
+    }
+
+    public void setY2(double y2) {
+        this.y2 = y2;
+    }
+
+    public double getX3() {
+        return x3;
+    }
+
+    public void setX3(double x3) {
+        this.x3 = x3;
+    }
+
+    public double getY3() {
+        return y3;
+    }
+
+    public void setY3(double y3) {
         this.y3 = y3;
     }
 
@@ -41,11 +87,15 @@ public class Triangle implements Shape {
         return maxY - minY;
     }
 
+    public double getSideLength(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
     @Override
     public double getArea() {
-        double sideALength = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-        double sideBLength = Math.sqrt(Math.pow(x1 - x3, 2) + Math.pow(y1 - y3, 2));
-        double sideCLength = Math.sqrt(Math.pow(x3 - x2, 2) + Math.pow(y3 - y2, 2));
+        double sideALength = getSideLength(x1, y1, x2, y2);
+        double sideBLength = getSideLength(x3, y3, x1, y1);
+        double sideCLength = getSideLength(x3, y3, x2, y2);
 
         double halfPerimeter = (sideALength + sideBLength + sideCLength) / 2;
 
@@ -64,30 +114,26 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Triangle{x1 = " + x1 + ", x2 = " + x2 + ", x3 = " + x3 +
-                ", y1 = " + y1 + ", y2 = " + y2 + ", y3 = " + y3 + '}';
+        return "Triangle{x1 = " + x1 + ", y1 = " + y1 + ", x2 = " + x2 +
+                ", y2 = " + y2 + ", x3 = " + x3 + ", y3 = " + y3 + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Triangle triangle = (Triangle) o;
-        return Double.compare(x1, triangle.x1) == 0 && Double.compare(x2, triangle.x2) == 0 &&
-                Double.compare(x3, triangle.x3) == 0 && Double.compare(y1, triangle.y1) == 0 &&
-                Double.compare(y2, triangle.y2) == 0 && Double.compare(y3, triangle.y3) == 0;
+        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 &&
+                y2 == triangle.y2 && x3 == triangle.x3 && y3 == triangle.y3;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 37;
-        int hash = 1;
-        hash = (int) (prime * hash + x1);
-        hash = (int) (prime * hash + y1);
-        hash = (int) (prime * hash + x2);
-        hash = (int) (prime * hash + y2);
-        hash = (int) (prime * hash + x3);
-        hash = (int) (prime * hash + y3);
-        return hash;
+        return Objects.hash(x1, y2, x1, y2, x3, y3);
     }
 }

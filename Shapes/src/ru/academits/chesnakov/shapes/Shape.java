@@ -1,4 +1,4 @@
-package ru.academits.chesnakov.shape;
+package ru.academits.chesnakov.shapes;
 
 public interface Shape {
     double getWidth();

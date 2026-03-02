@@ -1,29 +1,22 @@
-package ru.academits.chesnakov.shape_main;
+package ru.academits.chesnakov.shapes_main;
 
-import ru.academits.chesnakov.circle.Circle;
-import ru.academits.chesnakov.rectangle.Rectangle;
-import ru.academits.chesnakov.shape.Shape;
-import ru.academits.chesnakov.square.Square;
-import ru.academits.chesnakov.triangle.Triangle;
+import ru.academits.chesnakov.shapes.*;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class Main {
-    public static Shape findMaxAreaShape(Shape[] shapes) {
-        Arrays.sort(shapes, Comparator.comparingDouble(Shape::getArea)
-        );
+    public static Shape getMaxAreaShape(Shape[] shapes) {
+        Arrays.sort(shapes, new ShapeAreaComparator());
 
         return shapes[shapes.length - 1];
     }
 
-    public static Shape findSecondMaxPerimeterShape(Shape[] shapes) {
-        Arrays.sort(shapes, Comparator.comparingDouble(Shape::getPerimeter)
-        );
-
+    public static Shape getSecondMaxPerimeterShape(Shape[] shapes) {
         if (shapes.length < 2) {
             throw new IllegalArgumentException("Переданный массив содержит меньше двух объектов");
         }
+
+        Arrays.sort(shapes, new ShapePerimeterComparator());
 
         return shapes[shapes.length - 2];
     }
@@ -51,19 +44,22 @@ public class Main {
         System.out.println("Площадь прямоугольника = " + shape3.getArea());
         System.out.println("Периметр прямоугольника = " + shape3.getPerimeter());
 
-        Shape shape4 = new Circle(5);
+        Circle circle = new Circle(7);
+        System.out.println("Радиус окружности до изменения = " + circle.getRadius());
+        circle.setRadius(10);
+        System.out.println("Радиус окружности после изменения = " + circle.getRadius());
 
-        System.out.println("Высота окружности = " + shape4.getHeight());
-        System.out.println("Ширина окружности = " + shape4.getWidth());
-        System.out.println("Площадь окружности = " + shape4.getArea());
-        System.out.println("Периметр окружности = " + shape4.getPerimeter());
+        System.out.println("Высота окружности = " + circle.getHeight());
+        System.out.println("Ширина окружности = " + circle.getWidth());
+        System.out.println("Площадь окружности = " + circle.getArea());
+        System.out.println("Периметр окружности = " + circle.getPerimeter());
 
-        Shape shape5 = new Rectangle(5, 7);
-        Shape shape6 = new Square(5);
+        Shape shape4 = new Rectangle(5, 7);
+        Shape shape5 = new Square(5);
 
-        Shape[] shapes = {shape1, shape2, shape3, shape4, shape5, shape6};
+        Shape[] shapes = {shape1, shape2, shape3, circle, shape4, shape5};
 
-        Shape maxAreaShape = findMaxAreaShape(shapes);
+        Shape maxAreaShape = getMaxAreaShape(shapes);
 
         System.out.println("Высота большей по площади фигуры = " + maxAreaShape.getHeight());
         System.out.println("Ширина большей по площади фигуры = " + maxAreaShape.getWidth());
@@ -71,7 +67,7 @@ public class Main {
         System.out.println("Периметр большей по площади фигуры = " + maxAreaShape.getPerimeter());
         System.out.println("Тип объекта большей по площади фигуры = " + maxAreaShape.getClass());
 
-        Shape secondMaxPerimeterShape = findSecondMaxPerimeterShape(shapes);
+        Shape secondMaxPerimeterShape = getSecondMaxPerimeterShape(shapes);
 
         System.out.println("Высота второй по величине периметра фигуры = " + secondMaxPerimeterShape.getHeight());
         System.out.println("Ширина второй по величине периметра фигуры = " + secondMaxPerimeterShape.getWidth());

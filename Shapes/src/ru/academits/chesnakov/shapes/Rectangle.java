@@ -1,6 +1,4 @@
-package ru.academits.chesnakov.rectangle;
-
-import ru.academits.chesnakov.shape.Shape;
+package ru.academits.chesnakov.shapes;
 
 import java.util.Objects;
 
@@ -18,9 +16,17 @@ public class Rectangle implements Shape {
         return width;
     }
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
     @Override
     public double getHeight() {
         return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override
@@ -40,18 +46,19 @@ public class Rectangle implements Shape {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Rectangle rectangle = (Rectangle) o;
-        return Double.compare(width, rectangle.width) == 0 && Double.compare(height, rectangle.height) == 0;
+        return width == rectangle.width && height == rectangle.height;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 37;
-        int hash = 1;
-        hash = (int) (prime * hash + width);
-        hash = (int) (prime * hash + height);
-        return hash;
+        return Objects.hash(width, height);
     }
 }

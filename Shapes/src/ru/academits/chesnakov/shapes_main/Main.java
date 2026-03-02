@@ -37,7 +37,7 @@ public class Main {
         System.out.println("Площадь квадрата = " + shape2.getArea());
         System.out.println("Периметр квадрата = " + shape2.getPerimeter());
 
-        Shape shape3 = new Rectangle(3, 5);
+        Shape shape3 = new Rectangle(2, 5);
 
         System.out.println("Высота прямоугольника = " + shape3.getHeight());
         System.out.println("Ширина прямоугольника = " + shape3.getWidth());

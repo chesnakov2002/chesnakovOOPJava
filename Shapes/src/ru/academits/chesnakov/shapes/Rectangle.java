@@ -1,7 +1,5 @@
 package ru.academits.chesnakov.shapes;
 
-import java.util.Objects;
-
 public class Rectangle implements Shape {
     private double width;
     private double height;
@@ -49,6 +47,7 @@ public class Rectangle implements Shape {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
@@ -59,6 +58,10 @@ public class Rectangle implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height);
+        final int prime = 37;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(width);
+        hash = prime * hash + Double.hashCode(height);
+        return hash;
     }
 }

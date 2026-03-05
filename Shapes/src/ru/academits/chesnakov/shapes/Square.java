@@ -7,11 +7,11 @@ public class Square implements Shape {
         this.side = side;
     }
 
-    public double setSide() {
+    public double getSides() {
         return side;
     }
 
-    public void setSide(double side) {
+    public void setSides(double side) {
         this.side = side;
     }
 
@@ -45,6 +45,7 @@ public class Square implements Shape {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }

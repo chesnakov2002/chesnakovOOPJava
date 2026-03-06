@@ -1,8 +1,8 @@
 package ru.academits.chesnakov.shapes_main;
 
 import ru.academits.chesnakov.shapes.*;
-import ru.academits.chesnakov.Comparators.ShapeAreaComparator;
-import ru.academits.chesnakov.Comparators.ShapePerimeterComparator;
+import ru.academits.chesnakov.comparators.ShapeAreaComparator;
+import ru.academits.chesnakov.comparators.ShapePerimeterComparator;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ public class Main {
             throw new IllegalArgumentException("Переданный массив не содержит объектов");
         }
 
-        Arrays.sort(shapes, new ShapeAreaComparator<>());
+        Arrays.sort(shapes, new ShapeAreaComparator());
 
         return shapes[shapes.length - 1];
     }
@@ -22,7 +22,7 @@ public class Main {
             throw new IllegalArgumentException("Переданный массив содержит меньше двух объектов");
         }
 
-        Arrays.sort(shapes, new ShapePerimeterComparator<>());
+        Arrays.sort(shapes, new ShapePerimeterComparator());
 
         return shapes[shapes.length - 2];
     }

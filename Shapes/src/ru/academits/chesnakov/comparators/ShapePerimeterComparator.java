@@ -1,12 +1,12 @@
-package ru.academits.chesnakov.Comparators;
+package ru.academits.chesnakov.comparators;
 
 import ru.academits.chesnakov.shapes.Shape;
 
 import java.util.Comparator;
 
-public class ShapePerimeterComparator<T extends Shape> implements Comparator<T> {
+public class ShapePerimeterComparator implements Comparator<Shape> {
     @Override
-    public int compare(T shape1, T shape2) {
+    public int compare(Shape shape1, Shape shape2) {
         return Double.compare(shape1.getPerimeter(), shape2.getPerimeter());
     }
 }

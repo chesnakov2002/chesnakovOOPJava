@@ -7,11 +7,11 @@ public class Triangle implements Shape {
     private double y2;
     private double x3;
     private double y3;
-    private static final double epsilon = 1e-10;
 
+    private static final double EPSILON = 1e-10;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
 
         this.x1 = x1;
         this.y1 = y1;
@@ -21,8 +21,8 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    private static void isTriangle(double x1, double y1, double x2, double y2, double x3, double y3) {
-        if (Math.abs((x1 - x2) * (y1 - y3) - (x1 - x3) * (y1 - y2)) <= epsilon) {
+    private static void validateTriangle(double x1, double y1, double x2, double y2, double x3, double y3) {
+        if (Math.abs((x1 - x2) * (y1 - y3) - (x1 - x3) * (y1 - y2)) <= EPSILON) {
             throw new IllegalArgumentException("Точки лежат на одной прямой");
         }
     }
@@ -32,7 +32,7 @@ public class Triangle implements Shape {
     }
 
     public void setX1(double x1) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.x1 = x1;
     }
 
@@ -41,7 +41,7 @@ public class Triangle implements Shape {
     }
 
     public void setY1(double y1) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.y1 = y1;
     }
 
@@ -50,7 +50,7 @@ public class Triangle implements Shape {
     }
 
     public void setX2(double x2) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.x2 = x2;
     }
 
@@ -59,7 +59,7 @@ public class Triangle implements Shape {
     }
 
     public void setY2(double y2) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.y2 = y2;
     }
 
@@ -68,7 +68,7 @@ public class Triangle implements Shape {
     }
 
     public void setX3(double x3) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.x3 = x3;
     }
 
@@ -77,7 +77,7 @@ public class Triangle implements Shape {
     }
 
     public void setY3(double y3) {
-        isTriangle(x1, y1, x2, y2, x3, y3);
+        validateTriangle(x1, y1, x2, y2, x3, y3);
         this.y3 = y3;
     }
 
@@ -137,8 +137,9 @@ public class Triangle implements Shape {
         }
 
         Triangle triangle = (Triangle) o;
-        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 &&
-                y2 == triangle.y2 && x3 == triangle.x3 && y3 == triangle.y3;
+        return x1 == triangle.x1 && y1 == triangle.y1
+                && x2 == triangle.x2 && y2 == triangle.y2
+                && x3 == triangle.x3 && y3 == triangle.y3;
     }
 
     @Override

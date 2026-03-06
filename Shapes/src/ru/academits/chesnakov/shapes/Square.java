@@ -7,11 +7,11 @@ public class Square implements Shape {
         this.side = side;
     }
 
-    public double getSides() {
+    public double getSideLength() {
         return side;
     }
 
-    public void setSides(double side) {
+    public void setSideLength(double side) {
         this.side = side;
     }
 

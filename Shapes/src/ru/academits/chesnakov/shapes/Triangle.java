@@ -23,7 +23,8 @@ public class Triangle implements Shape {
 
     private static void validateTriangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         if (Math.abs((x1 - x2) * (y1 - y3) - (x1 - x3) * (y1 - y2)) <= EPSILON) {
-            throw new IllegalArgumentException("Точки лежат на одной прямой");
+            throw new IllegalArgumentException(String.format("Точки лежат на одной прямой. Введенные координаты точек:" +
+                    " Точка A = (%.2f %.2f); Точка B = (%.2f %.2f); Точка C = (%.2f %.2f)", x1, y1, x2, y2, x3, y3));
         }
     }
 

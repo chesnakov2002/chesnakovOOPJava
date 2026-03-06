@@ -35,4 +35,26 @@ public class Vector {
             throw new IllegalArgumentException("Размер вектора меньше или равен нулю");
         }
     }
+
+    private static int getSize(Vector vector) {
+        return vector.n;
+    }
+
+    // TODO: Сделать чтобы выводились только фигурные скобки {}, без массива [].
+    @Override
+    public String toString() {
+        return '{' + Arrays.toString(vectorArray) + '}';
+    }
+
+    public void add(Vector vector) {
+        if (n < vector.n) {
+            vectorArray = Arrays.copyOf(vectorArray, vector.n);
+            n = vector.n;
+        }
+
+        for (int i = 0; i < vector.n; i++) {
+            vectorArray[i] += vector.vectorArray[i];
+        }
+    }
 }
+

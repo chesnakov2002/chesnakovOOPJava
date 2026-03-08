@@ -28,7 +28,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Shape shape1 = new Triangle(1, 4, 3, 8, 6, 2);
+        Shape shape1 = new Triangle(1, 4, 1, 8, 1, 2);
 
         System.out.println(shape1);
         System.out.println("Высота треугольника = " + shape1.getHeight());

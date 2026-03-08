@@ -1,43 +1,43 @@
 package ru.academits.chesnakov.shapes;
 
 public class Square implements Shape {
-    private double side;
+    private double sideLength;
 
     public Square(double side) {
-        this.side = side;
+        this.sideLength = side;
     }
 
     public double getSideLength() {
-        return side;
+        return sideLength;
     }
 
     public void setSideLength(double side) {
-        this.side = side;
+        this.sideLength = side;
     }
 
     @Override
     public double getWidth() {
-        return side;
+        return sideLength;
     }
 
     @Override
     public double getHeight() {
-        return side;
+        return sideLength;
     }
 
     @Override
     public double getArea() {
-        return side * side;
+        return sideLength * sideLength;
     }
 
     @Override
     public double getPerimeter() {
-        return side * 4;
+        return sideLength * 4;
     }
 
     @Override
     public String toString() {
-        return "Square{side=" + side + '}';
+        return "Square{side=" + sideLength + '}';
     }
 
     @Override
@@ -51,11 +51,11 @@ public class Square implements Shape {
         }
 
         Square square = (Square) o;
-        return side == square.side;
+        return sideLength == square.sideLength;
     }
 
     @Override
     public int hashCode() {
-        return Double.hashCode(side);
+        return Double.hashCode(sideLength);
     }
 }

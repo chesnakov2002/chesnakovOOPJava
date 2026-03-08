@@ -1,5 +1,7 @@
 package ru.academits.chesnakov.vector;
 
+import ru.academits.chesnakov.vector_main.Main;
+
 import java.util.Arrays;
 
 public class Vector {
@@ -56,5 +58,46 @@ public class Vector {
             vectorArray[i] += vector.vectorArray[i];
         }
     }
-}
 
+    public void subtract(Vector vector) {
+        if (n < vector.n) {
+            vectorArray = Arrays.copyOf(vectorArray, vector.n);
+            n = vector.n;
+        }
+
+        for (int i = 0; i < vector.n; i++) {
+            vectorArray[i] -= vector.vectorArray[i];
+        }
+    }
+
+    public void multiply(Vector vector) {
+        if (n < vector.n) {
+            vectorArray = Arrays.copyOf(vectorArray, vector.n);
+            n = vector.n;
+        }
+
+        for (int i = 0; i < vector.n; i++) {
+            vectorArray[i] *= vector.vectorArray[i];
+        }
+    }
+
+    public void invert() {
+        for (int i = 0; i < n; i++) {
+            vectorArray[i] *= -1;
+        }
+    }
+
+    public double getLength() {
+        double sum = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += vectorArray[i] * vectorArray[i];
+        }
+
+        return Math.abs(Math.sqrt(sum));
+    }
+
+    public double getComponent(int index) {
+
+    }
+}

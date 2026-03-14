@@ -3,16 +3,16 @@ package ru.academits.chesnakov.shapes;
 public class Square implements Shape {
     private double sideLength;
 
-    public Square(double side) {
-        this.sideLength = side;
+    public Square(double sideLength) {
+        this.sideLength = sideLength;
     }
 
     public double getSideLength() {
         return sideLength;
     }
 
-    public void setSideLength(double side) {
-        this.sideLength = side;
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package ru.academits.chesnakov.vector;
 
-import ru.academits.chesnakov.vector_main.Main;
-
 import java.util.Arrays;
 
 public class Vector {
@@ -38,14 +36,60 @@ public class Vector {
         }
     }
 
-    private static int getSize(Vector vector) {
-        return vector.n;
+    public static Vector addVectors(Vector vector1, Vector vector2) {
+        if (vector1.n < vector2.n) {
+            double[] newVectorArray = new double[vector2.n];
+
+            for (int i = 0; i < vector1.n; i++) {
+                newVectorArray[i] = vector1.vectorArray[i] + vector2.vectorArray[i];
+            }
+
+            System.arraycopy(vector2.vectorArray, vector1.n, newVectorArray,
+                    vector1.n, vector2.n - (vector1.n));
+
+            return new Vector(newVectorArray);
+        }
+
+        double[] newVectorArray = new double[vector1.n];
+
+        for (int i = 0; i < vector2.n; i++) {
+            newVectorArray[i] = vector1.vectorArray[i] + vector2.vectorArray[i];
+        }
+
+        System.arraycopy(vector1.vectorArray, vector2.n, newVectorArray,
+                vector2.n, vector1.n - (vector2.n));
+
+        return new Vector(newVectorArray);
     }
 
-    // TODO: Сделать чтобы выводились только фигурные скобки {}, без массива [].
-    @Override
-    public String toString() {
-        return '{' + Arrays.toString(vectorArray) + '}';
+    public static Vector subtractVectors(Vector vector1, Vector vector2) {
+        if (vector1.n < vector2.n) {
+            double[] newVectorArray = new double[vector2.n];
+
+            for (int i = 0; i < vector1.n; i++) {
+                newVectorArray[i] = vector1.vectorArray[i] - vector2.vectorArray[i];
+            }
+
+            System.arraycopy(vector2.vectorArray, vector1.n, newVectorArray,
+                    vector1.n, vector2.n - (vector1.n));
+
+            for (int i = vector1.n; i < vector2.n; i++) {
+                newVectorArray[i] *= -1;
+            }
+
+            return new Vector(newVectorArray);
+        }
+
+        double[] newVectorArray = new double[vector1.n];
+
+        for (int i = 0; i < vector2.n; i++) {
+            newVectorArray[i] = vector1.vectorArray[i] - vector2.vectorArray[i];
+        }
+
+        System.arraycopy(vector1.vectorArray, vector2.n, newVectorArray,
+                vector2.n, vector1.n - (vector2.n));
+
+        return new Vector(newVectorArray);
     }
 
     public void add(Vector vector) {
@@ -98,6 +142,44 @@ public class Vector {
     }
 
     public double getComponent(int index) {
+        return vectorArray[index];
+    }
 
+    public void setComponent(double component, int index) {
+        vectorArray[index] = component;
+    }
+
+    private static int getSize(Vector vector) {
+        return vector.n;
+    }
+
+    // TODO: Сделать чтобы выводились только фигурные скобки {}, без массива [].
+    @Override
+    public String toString() {
+        return '{' + Arrays.toString(vectorArray) + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Vector vector = (Vector) o;
+        return n == vector.n && Arrays.equals(vectorArray, vector.vectorArray);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 37;
+        int hash = 1;
+        hash = prime * hash + n;
+        hash = prime * hash + Arrays.hashCode(vectorArray);
+
+        return hash;
     }
 }

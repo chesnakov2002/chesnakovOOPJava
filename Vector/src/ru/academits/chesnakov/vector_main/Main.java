@@ -17,32 +17,39 @@ public class Main {
         Vector vector4 = new Vector(array4);
         Vector vector5 = new Vector(array5);
         Vector vector6 = new Vector(array6);
+        Vector vector9 = new Vector(new double[]{1, 2, 3, 4});
+        Vector vector10 = new Vector(new double[]{1, 2, 3, 4});
 
         vector1.add(vector2);
-        System.out.println(vector1);
+        System.out.println("Результат прибавления вектора 2 к вектору 1 = " + vector1);
 
         vector2.subtract(vector3);
-        System.out.println(vector2);
+        System.out.println("Результат вычитания вектора 3 из вектора 2 = " + vector2);
 
-        vector3.multiply(vector4);
-        System.out.println(vector3);
+        vector3.multiplyByScalar(5);
+        System.out.println("Результат умножения вектора 3 на скаляр 5 = " + vector3);
 
         vector4.invert();
-        System.out.println(vector4);
+        System.out.println("Результат разворота вектора 4 = " + vector4);
 
-        System.out.println(vector5.getLength());
+        System.out.println("Длина вектора 5" + vector5.getLength());
 
-        System.out.println(vector5.getComponent(2));
+        System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
 
         vector5.setComponent(8, 2);
-        System.out.println(vector5.getComponent(2));
+        System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
 
-        System.out.println(vector5.equals(vector6));
+        System.out.println("Вектор 5 и вектор 6 равны = " + vector5.equals(vector6));
 
         Vector vector7 = Vector.addVectors(vector5, vector6);
-        System.out.println(vector7);
+        System.out.println("Вектор полученный в резульате сложения вектора 5 и вектора 6 = " + vector7);
 
         Vector vector8 = Vector.subtractVectors(vector5, vector6);
-        System.out.println(vector8);
+        System.out.println("Вектор полученный в резульате вычитания вектора 6 из вектора 5 = " + vector8);
+
+        Vector vector11 = Vector.multiplyVectors(vector9, vector10);
+        System.out.println("Вектор полученный в резульате скалярного умножения вектора 9 на вектор 10 = " + vector11);
+
+        System.out.println("Размер вектора 11 = " + Vector.getSize(vector11));
     }
 }

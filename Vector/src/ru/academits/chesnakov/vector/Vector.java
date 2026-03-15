@@ -36,58 +36,58 @@ public class Vector {
         }
     }
 
-    public static Vector addVectors(Vector vector1, Vector vector2) {
-        if (vector1.n < vector2.n) {
-            double[] newVectorArray = new double[vector2.n];
+    public static int getSize(Vector vector) {
+        return vector.n;
+    }
 
-            for (int i = 0; i < vector1.n; i++) {
+    public static Vector addVectors(Vector vector1, Vector vector2) {
+        int maxLength = Math.max(vector1.n, vector2.n);
+
+        double[] newVectorArray = new double[maxLength];
+
+        for (int i = 0; i < maxLength; i++) {
+            if (i >= vector1.n) {
+                newVectorArray[i] = vector2.vectorArray[i];
+            } else if (i >= vector2.n) {
+                newVectorArray[i] = vector1.vectorArray[i];
+            } else {
                 newVectorArray[i] = vector1.vectorArray[i] + vector2.vectorArray[i];
             }
-
-            System.arraycopy(vector2.vectorArray, vector1.n, newVectorArray,
-                    vector1.n, vector2.n - (vector1.n));
-
-            return new Vector(newVectorArray);
         }
-
-        double[] newVectorArray = new double[vector1.n];
-
-        for (int i = 0; i < vector2.n; i++) {
-            newVectorArray[i] = vector1.vectorArray[i] + vector2.vectorArray[i];
-        }
-
-        System.arraycopy(vector1.vectorArray, vector2.n, newVectorArray,
-                vector2.n, vector1.n - (vector2.n));
 
         return new Vector(newVectorArray);
     }
 
     public static Vector subtractVectors(Vector vector1, Vector vector2) {
-        if (vector1.n < vector2.n) {
-            double[] newVectorArray = new double[vector2.n];
+        int maxLength = Math.max(vector1.n, vector2.n);
 
-            for (int i = 0; i < vector1.n; i++) {
+        double[] newVectorArray = new double[maxLength];
+
+        for (int i = 0; i < maxLength; i++) {
+            if (i >= vector1.n) {
+                newVectorArray[i] = -vector2.vectorArray[i];
+            } else if (i >= vector2.n) {
+                newVectorArray[i] = vector1.vectorArray[i];
+            } else {
                 newVectorArray[i] = vector1.vectorArray[i] - vector2.vectorArray[i];
             }
+        }
 
-            System.arraycopy(vector2.vectorArray, vector1.n, newVectorArray,
-                    vector1.n, vector2.n - (vector1.n));
+        return new Vector(newVectorArray);
+    }
 
-            for (int i = vector1.n; i < vector2.n; i++) {
-                newVectorArray[i] *= -1;
+    public static Vector multiplyVectors(Vector vector1, Vector vector2) {
+        int maxLength = Math.max(vector1.n, vector2.n);
+
+        double[] newVectorArray = new double[maxLength];
+
+        for (int i = 0; i < maxLength; i++) {
+            if (i >= vector1.n || i >= vector2.n) {
+                newVectorArray[i] = 0;
+            } else {
+                newVectorArray[i] = vector1.vectorArray[i] * vector2.vectorArray[i];
             }
-
-            return new Vector(newVectorArray);
         }
-
-        double[] newVectorArray = new double[vector1.n];
-
-        for (int i = 0; i < vector2.n; i++) {
-            newVectorArray[i] = vector1.vectorArray[i] - vector2.vectorArray[i];
-        }
-
-        System.arraycopy(vector1.vectorArray, vector2.n, newVectorArray,
-                vector2.n, vector1.n - (vector2.n));
 
         return new Vector(newVectorArray);
     }
@@ -114,14 +114,9 @@ public class Vector {
         }
     }
 
-    public void multiply(Vector vector) {
-        if (n < vector.n) {
-            vectorArray = Arrays.copyOf(vectorArray, vector.n);
-            n = vector.n;
-        }
-
-        for (int i = 0; i < vector.n; i++) {
-            vectorArray[i] *= vector.vectorArray[i];
+    public void multiplyByScalar(double scalar) {
+        for (int i = 0; i < n; i++) {
+            vectorArray[i] *= scalar;
         }
     }
 
@@ -149,11 +144,6 @@ public class Vector {
         vectorArray[index] = component;
     }
 
-    private static int getSize(Vector vector) {
-        return vector.n;
-    }
-
-    // TODO: Сделать чтобы выводились только фигурные скобки {}, без массива [].
     @Override
     public String toString() {
         return '{' + Arrays.toString(vectorArray) + '}';

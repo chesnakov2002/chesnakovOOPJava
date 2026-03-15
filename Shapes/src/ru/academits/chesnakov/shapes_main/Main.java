@@ -1,8 +1,8 @@
 package ru.academits.chesnakov.shapes_main;
 
 import ru.academits.chesnakov.shapes.*;
-import ru.academits.chesnakov.comparators.ShapeAreaComparator;
-import ru.academits.chesnakov.comparators.ShapePerimeterComparator;
+import ru.academits.chesnakov.shapes_comparators.ShapeAreaComparator;
+import ru.academits.chesnakov.shapes_comparators.ShapePerimeterComparator;
 
 import java.util.Arrays;
 

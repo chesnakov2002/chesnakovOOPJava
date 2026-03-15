@@ -1,4 +1,4 @@
-package ru.academits.chesnakov.comparators;
+package ru.academits.chesnakov.shapes_comparators;
 
 import ru.academits.chesnakov.shapes.Shape;
 

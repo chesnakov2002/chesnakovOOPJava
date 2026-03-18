@@ -41,15 +41,15 @@ public class Main {
 
         System.out.println("Вектор 5 и вектор 6 равны = " + vector5.equals(vector6));
 
-        Vector vector7 = Vector.addVectors(vector5, vector6);
+        Vector vector7 = Vector.getAdd(vector5, vector6);
         System.out.println("Вектор полученный в резульате сложения вектора 5 и вектора 6 = " + vector7);
 
-        Vector vector8 = Vector.subtractVectors(vector5, vector6);
+        Vector vector8 = Vector.getSubtract(vector5, vector6);
         System.out.println("Вектор полученный в резульате вычитания вектора 6 из вектора 5 = " + vector8);
 
-        Vector vector11 = Vector.multiplyVectors(vector9, vector10);
+        Vector vector11 = Vector.getMultiply(vector9, vector10);
         System.out.println("Вектор полученный в резульате скалярного умножения вектора 9 на вектор 10 = " + vector11);
 
-        System.out.println("Размер вектора 11 = " + Vector.getSize(vector11));
+        System.out.println("Размер вектора 11 = " + vector11.getSize());
     }
 }

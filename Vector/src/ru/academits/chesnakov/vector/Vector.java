@@ -36,64 +36,33 @@ public class Vector {
     }
 
     public static Vector getAdd(Vector vector1, Vector vector2) {
-        int maxSize = Math.max(vector1.components.length, vector2.components.length);
+        double[] newComponents = Arrays.copyOf(vector1.components, vector1.components.length);
+        Vector newVector = new Vector(newComponents);
 
-        double[] newComponents = new double[maxSize];
+        newVector.add(vector2);
 
-        for (int i = 0; i < maxSize; i++) {
-            if (i >= vector1.components.length) {
-                newComponents[i] = vector2.components[i];
-            } else if (i >= vector2.components.length) {
-                newComponents[i] = vector1.components[i];
-            } else {
-                newComponents[i] = vector1.components[i] + vector2.components[i];
-            }
-        }
-
-        return new Vector(newComponents);
+        return newVector;
     }
-    /* public void add(Vector vector) {
-        if (components.length < vector.components.length) {
-            components = Arrays.copyOf(components, vector.components.length);
-        }
-
-        for (int i = 0; i < vector.components.length; i++) {
-            components[i] += vector.components[i];
-        }
-    }*/
 
     public static Vector getSubtract(Vector vector1, Vector vector2) {
-        int maxSize = Math.max(vector1.components.length, vector2.components.length);
+        double[] newComponents = Arrays.copyOf(vector1.components, vector1.components.length);
+        Vector newVector = new Vector(newComponents);
 
-        double[] newComponents = new double[maxSize];
+        newVector.subtract(vector2);
 
-        for (int i = 0; i < maxSize; i++) {
-            if (i >= vector1.components.length) {
-                newComponents[i] = -vector2.components[i];
-            } else if (i >= vector2.components.length) {
-                newComponents[i] = vector1.components[i];
-            } else {
-                newComponents[i] = vector1.components[i] - vector2.components[i];
-            }
-        }
-
-        return new Vector(newComponents);
+        return newVector;
     }
 
-    public static Vector getMultiply(Vector vector1, Vector vector2) {
-        int maxSize = Math.max(vector1.components.length, vector2.components.length);
+    public static double getMultiply(Vector vector1, Vector vector2) {
+        int minSize = Math.min(vector1.components.length, vector2.components.length);
 
-        double[] newComponents = new double[maxSize];
+        double result = 0;
 
-        for (int i = 0; i < maxSize; i++) {
-            if (i >= vector1.components.length || i >= vector2.components.length) {
-                newComponents[i] = 0;
-            } else {
-                newComponents[i] = vector1.components[i] * vector2.components[i];
-            }
+        for (int i = 0; i < minSize; i++) {
+            result += vector1.components[i] * vector2.components[i];
         }
 
-        return new Vector(newComponents);
+        return result;
     }
 
     public void add(Vector vector) {

@@ -17,7 +17,7 @@ public class Main {
         Vector vector4 = new Vector(array4);
         Vector vector5 = new Vector(array5);
         Vector vector6 = new Vector(array6);
-        Vector vector9 = new Vector(new double[]{1, 2, 3, 4});
+        Vector vector9 = new Vector(new double[]{1, 2, 3, 4, 5, 6, 7, 8});
         Vector vector10 = new Vector(new double[]{1, 2, 3, 4});
 
         vector1.add(vector2);
@@ -47,9 +47,8 @@ public class Main {
         Vector vector8 = Vector.getSubtract(vector5, vector6);
         System.out.println("Вектор полученный в резульате вычитания вектора 6 из вектора 5 = " + vector8);
 
-        Vector vector11 = Vector.getMultiply(vector9, vector10);
-        System.out.println("Вектор полученный в резульате скалярного умножения вектора 9 на вектор 10 = " + vector11);
+        System.out.println("Результат скалярного умноженися вектора 9 на вектор 10 = " + Vector.getMultiply(vector9, vector10));
 
-        System.out.println("Размер вектора 11 = " + vector11.getSize());
+        System.out.println("Размер вектора 6 = " + vector6.getSize());
     }
 }

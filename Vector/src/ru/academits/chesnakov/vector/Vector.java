@@ -52,7 +52,6 @@ public class Vector {
 
         return new Vector(newComponents);
     }
-
     /* public void add(Vector vector) {
         if (components.length < vector.components.length) {
             components = Arrays.copyOf(components, vector.components.length);

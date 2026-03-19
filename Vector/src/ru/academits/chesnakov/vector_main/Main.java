@@ -36,7 +36,7 @@ public class Main {
 
         System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
 
-        vector5.setComponent(8, 2);
+        vector5.setComponent(2, 8);
         System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
 
         System.out.println("Вектор 5 и вектор 6 равны = " + vector5.equals(vector6));

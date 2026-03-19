@@ -92,9 +92,7 @@ public class Vector {
     }
 
     public void invert() {
-        for (int i = 0; i < components.length; i++) {
-            components[i] *= -1;
-        }
+        multiplyByScalar(-1);
     }
 
     public double getLength() {
@@ -111,7 +109,7 @@ public class Vector {
         return components[index];
     }
 
-    public void setComponent(double component, int index) {
+    public void setComponent(int index, double component) {
         components[index] = component;
     }
 

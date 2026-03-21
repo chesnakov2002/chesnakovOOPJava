@@ -32,22 +32,22 @@ public class Main {
         vector4.invert();
         System.out.println("Результат разворота вектора 4 = " + vector4);
 
-        System.out.println("Длина вектора 5" + vector5.getLength());
+        System.out.println("Длина вектора 5 = " + vector5.getLength());
 
-        System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
+        System.out.println("Получение компоненты вектора 5 с индексом 2 = " + vector5.getComponent(2));
 
         vector5.setComponent(2, 8);
-        System.out.println("Получение компоненты вектора 5 под индексом 2 = " + vector5.getComponent(2));
+        System.out.println("Получение компоненты вектора 5 с индексом 2 = " + vector5.getComponent(2));
 
         System.out.println("Вектор 5 и вектор 6 равны = " + vector5.equals(vector6));
 
-        Vector vector7 = Vector.getAdd(vector5, vector6);
-        System.out.println("Вектор полученный в резульате сложения вектора 5 и вектора 6 = " + vector7);
+        Vector vector7 = Vector.getSum(vector5, vector6);
+        System.out.println("Вектор полученный в результате сложения вектора 5 и вектора 6 = " + vector7);
 
-        Vector vector8 = Vector.getSubtract(vector5, vector6);
-        System.out.println("Вектор полученный в резульате вычитания вектора 6 из вектора 5 = " + vector8);
+        Vector vector8 = Vector.getDifference(vector5, vector6);
+        System.out.println("Вектор полученный в результате вычитания вектора 6 из вектора 5 = " + vector8);
 
-        System.out.println("Результат скалярного умноженися вектора 9 на вектор 10 = " + Vector.getMultiply(vector9, vector10));
+        System.out.println("Результат скалярного умножения вектора 9 на вектор 10 = " + Vector.getDotProduct(vector9, vector10));
 
         System.out.println("Размер вектора 6 = " + vector6.getSize());
     }

@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class Vector {
     private double[] components;
 
-    public Vector(int arrayLength) {
-        validateLength(arrayLength);
-        components = new double[arrayLength];
+    public Vector(int vectorSize) {
+        validateSize(vectorSize);
+        components = new double[vectorSize];
     }
 
     public Vector(Vector vector) {
@@ -15,19 +15,19 @@ public class Vector {
     }
 
     public Vector(double[] components) {
-        validateLength(components.length);
+        validateSize(components.length);
         this.components = Arrays.copyOf(components, components.length);
     }
 
-    public Vector(int arrayLength, double[] components) {
-        validateLength(arrayLength);
-        this.components = Arrays.copyOf(components, arrayLength);
+    public Vector(int vectorSize, double[] components) {
+        validateSize(vectorSize);
+        this.components = Arrays.copyOf(components, vectorSize);
     }
 
-    private static void validateLength(int arrayLength) {
-        if (arrayLength <= 0) {
-            throw new IllegalArgumentException("Размер вектора меньше или равен нулю." +
-                    "Размер переданного массива = " + arrayLength);
+    private static void validateSize(int vectorSize) {
+        if (vectorSize <= 0) {
+            throw new IllegalArgumentException("Размер вектора меньше или равен нулю. " +
+                    "Размер переданного вектора = " + vectorSize);
         }
     }
 
@@ -35,25 +35,23 @@ public class Vector {
         return components.length;
     }
 
-    public static Vector getAdd(Vector vector1, Vector vector2) {
-        double[] newComponents = Arrays.copyOf(vector1.components, vector1.components.length);
-        Vector newVector = new Vector(newComponents);
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        Vector newVector = new Vector(vector1);
 
         newVector.add(vector2);
 
         return newVector;
     }
 
-    public static Vector getSubtract(Vector vector1, Vector vector2) {
-        double[] newComponents = Arrays.copyOf(vector1.components, vector1.components.length);
-        Vector newVector = new Vector(newComponents);
+    public static Vector getDifference(Vector vector1, Vector vector2) {
+        Vector newVector = new Vector(vector1);
 
         newVector.subtract(vector2);
 
         return newVector;
     }
 
-    public static double getMultiply(Vector vector1, Vector vector2) {
+    public static double getDotProduct(Vector vector1, Vector vector2) {
         int minSize = Math.min(vector1.components.length, vector2.components.length);
 
         double result = 0;
@@ -115,7 +113,9 @@ public class Vector {
 
     @Override
     public String toString() {
-        return '{' + Arrays.toString(components) + '}';
+        String string = Arrays.toString(components);
+        string = string.replace('[', '{').replace(']', '}');
+        return string;
     }
 
     @Override
@@ -129,14 +129,13 @@ public class Vector {
         }
 
         Vector vector = (Vector) o;
-        return components.length == vector.components.length && Arrays.equals(components, vector.components);
+        return Arrays.equals(components, vector.components);
     }
 
     @Override
     public int hashCode() {
         final int prime = 37;
         int hash = 1;
-        hash = prime * hash + components.length;
         hash = prime * hash + Arrays.hashCode(components);
 
         return hash;

@@ -27,7 +27,7 @@ public class Vector {
     private static void validateSize(int vectorSize) {
         if (vectorSize <= 0) {
             throw new IllegalArgumentException("Размер вектора меньше или равен нулю. " +
-                    "Размер переданного вектора = " + vectorSize);
+                    "Переданный размер = " + vectorSize);
         }
     }
 
@@ -113,9 +113,19 @@ public class Vector {
 
     @Override
     public String toString() {
-        String string = Arrays.toString(components);
-        string = string.replace('[', '{').replace(']', '}');
-        return string;
+        StringBuilder stringBuilder = new StringBuilder("{");
+
+        for (int i = 0; i < components.length; i++) {
+            stringBuilder.append(components[i]);
+
+            if (i < components.length - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append('}');
+
+        return stringBuilder.toString();
     }
 
     @Override
@@ -134,10 +144,6 @@ public class Vector {
 
     @Override
     public int hashCode() {
-        final int prime = 37;
-        int hash = 1;
-        hash = prime * hash + Arrays.hashCode(components);
-
-        return hash;
+        return Arrays.hashCode(components);
     }
 }

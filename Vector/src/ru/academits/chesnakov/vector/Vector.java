@@ -115,12 +115,14 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("{");
 
-        for (int i = 0; i < components.length - 1; i++) {
+        int lastIndex = components.length - 1;
+
+        for (int i = 0; i < lastIndex; i++) {
             stringBuilder.append(components[i])
                     .append(", ");
         }
 
-        stringBuilder.append(components[components.length - 1])
+        stringBuilder.append(components[lastIndex])
                 .append('}');
 
         return stringBuilder.toString();

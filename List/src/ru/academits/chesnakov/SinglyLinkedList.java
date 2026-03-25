@@ -6,7 +6,7 @@ public class SinglyLinkedList<T> {
 
     public SinglyLinkedList(ListItem<T> head) {
         this.head = head;
-        this.count =;
+        count = findCount(head);
     }
 
     public SinglyLinkedList(ListItem<T> head, int count) {
@@ -15,11 +15,18 @@ public class SinglyLinkedList<T> {
     }
 
     public int findCount(ListItem<T> head) {
-        int count = 1;
+        count = 0;
 
-        while (head != null) {
+        for (ListItem<T> item = head; item != null; item = item.getNext()) {
             count++;
-            head = null;
+        }
+
+        return count;
+    }
+
+    public void validateIndex(int index) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Выход за границы списка. Переданный индекс = " + index + " Размер списка = " + count);
         }
     }
 
@@ -27,5 +34,57 @@ public class SinglyLinkedList<T> {
         return count;
     }
 
-    public
+    public T getHeadData(ListItem<T> head) {
+        return head.getData();
+    }
+
+    public T getData(int index) {
+        validateIndex(index);
+
+        int i = 0;
+        ListItem<T> item = head;
+
+        while (i != index) {
+            item = item.getNext();
+            i++;
+
+        }
+
+        return item.getData();
+    }
+
+    public T setData(int index, T data) {
+        validateIndex(index);
+
+        int i = 0;
+        ListItem<T> item = head;
+
+        while (i != index) {
+            item = item.getNext();
+            i++;
+        }
+
+        T removedData = item.getData();
+        item.setData(data);
+
+        return removedData;
+    }
+
+    public T removeElement(int index) {
+        validateIndex(index);
+
+        int i = 0;
+        ListItem<T> item = head;
+        ListItem<T> prevItem = null;
+
+        while (i != index) {
+            prevItem = item;
+            item = item.getNext();
+            i++;
+
+        }
+
+        prevItem.setNext(item.getNext());
+        //TODO если первый элемент обработать отдельно так как нету prev
+    }
 }

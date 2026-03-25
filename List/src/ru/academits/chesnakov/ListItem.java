@@ -1,0 +1,14 @@
+package ru.academits.chesnakov;
+
+public class ListItem<T> {
+    private T data;
+    private ListItem<T> next;
+
+    public ListItem(T data) {
+        this.data = data;
+    }
+
+    public ListItem(ListItem<T> next) {
+        this.next = next;
+    }
+}

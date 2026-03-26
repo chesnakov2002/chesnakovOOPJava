@@ -73,6 +73,14 @@ public class SinglyLinkedList<T> {
     public T removeElement(int index) {
         validateIndex(index);
 
+        if (index == 0) {
+            ListItem<T> itemToDelete = head;
+            head = head.getNext();
+            count--;
+
+            return itemToDelete.getData();
+        }
+
         int i = 0;
         ListItem<T> item = head;
         ListItem<T> prevItem = null;
@@ -85,6 +93,41 @@ public class SinglyLinkedList<T> {
         }
 
         prevItem.setNext(item.getNext());
-        //TODO если первый элемент обработать отдельно так как нету prev
+        count--;
+
+        return item.getData();
+    }
+
+    public void addFirst(T data) {
+        head = new ListItem<>(data, head);
+        count++;
+    }
+
+    public void add(int index, T data) {
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("Выход за границы списка. Переданный индекс = " + index + " Размер списка = " + count);
+        }
+
+        if (index == 0) {
+            addFirst(data);
+
+            return;
+        }
+
+        int i = 0;
+        ListItem<T> prevItem = null;
+        ListItem<T> item = head;
+
+        while (i != index) {
+            prevItem = item;
+            item = item.getNext();
+            i++;
+
+        }
+
+        ListItem<T> newItem = new ListItem<>(data, item);
+        prevItem.setNext(newItem);
+
+        count++;
     }
 }

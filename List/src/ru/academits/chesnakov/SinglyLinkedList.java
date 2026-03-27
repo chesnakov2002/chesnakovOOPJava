@@ -14,6 +14,10 @@ public class SinglyLinkedList<T> {
         this.count = count;
     }
 
+    public boolean isEmpty() {
+        return count == 0;
+    }
+
     public int findCount(ListItem<T> head) {
         count = 0;
 
@@ -129,5 +133,44 @@ public class SinglyLinkedList<T> {
         prevItem.setNext(newItem);
 
         count++;
+    }
+
+    public boolean removeByData(T data) {
+        if (isEmpty()) {
+            return false;
+        }
+
+        int i = 0;
+        ListItem<T> item = head;
+
+        if (data == null) {
+            while (i < count && item.getData() != null) {
+                item = item.getNext();
+                i++;
+
+            }
+
+            if (i == count) {
+                return false;
+            }
+
+            removeElement(i);
+
+            return true;
+        }
+
+        while (i < count && !data.equals(item.getData())) {
+            item = item.getNext();
+            i++;
+
+        }
+
+        if (i == count) {
+            return false;
+        }
+
+        removeElement(i);
+
+        return true;
     }
 }

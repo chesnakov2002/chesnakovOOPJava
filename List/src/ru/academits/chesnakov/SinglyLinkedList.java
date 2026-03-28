@@ -149,20 +149,12 @@ public class SinglyLinkedList<T> {
                 i++;
 
             }
+        } else {
+            while (i < count && !data.equals(item.getData())) {
+                item = item.getNext();
+                i++;
 
-            if (i == count) {
-                return false;
             }
-
-            removeElement(i);
-
-            return true;
-        }
-
-        while (i < count && !data.equals(item.getData())) {
-            item = item.getNext();
-            i++;
-
         }
 
         if (i == count) {
@@ -173,4 +165,31 @@ public class SinglyLinkedList<T> {
 
         return true;
     }
+
+    public T removeFirstElement() {
+        return removeElement(0);
+    }
+
+    public void reverseList() {
+        if (isEmpty()) {
+            return;
+        }
+
+        int i = 0;
+        ListItem<T> prevItem = null;
+        ListItem<T> item = head;
+        ListItem<T> nextItem;
+
+        while (i < count) {
+            nextItem = item.getNext();
+            item.setNext(prevItem);
+            prevItem = item;
+            item = nextItem;
+            i++;
+        }
+
+        head = prevItem;
+    }
+
+    public SinglyLinkedList<T> copyList()
 }

@@ -191,5 +191,23 @@ public class SinglyLinkedList<T> {
         head = prevItem;
     }
 
-    public SinglyLinkedList<T> copyList()
+    public SinglyLinkedList<T> copyList() {
+        int i = 0;
+        ListItem<T> prevItem = head;
+        ListItem<T> item = head;
+
+        ListItem<T> newItem = new ListItem<>(item.getData(), item.getNext());
+
+        SinglyLinkedList<T> newList = new SinglyLinkedList<>(newItem);
+
+        item = item.getNext();
+
+        while (i < count) {
+            newItem = new ListItem<>(item.getData(), item.getNext());
+            item = item.getNext();
+            i++;
+        }
+
+        return newList;
+    }
 }

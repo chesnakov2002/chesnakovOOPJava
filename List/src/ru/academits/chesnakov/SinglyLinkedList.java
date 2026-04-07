@@ -1,5 +1,7 @@
 package ru.academits.chesnakov;
 
+import java.util.NoSuchElementException;
+
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
     private int count;
@@ -14,21 +16,23 @@ public class SinglyLinkedList<T> {
         this.count = count;
     }
 
-    public boolean isEmpty() {
-        return count == 0;
+    private void validateNotEmpty() {
+        if (count == 0) {
+            throw new NoSuchElementException("Список пуст");
+        }
     }
 
-    public int findCount(ListItem<T> head) {
-        count = 0;
+    private int findCount(ListItem<T> head) {
+        int itemCount = 0;
 
         for (ListItem<T> item = head; item != null; item = item.getNext()) {
-            count++;
+            itemCount++;
         }
 
-        return count;
+        return itemCount;
     }
 
-    public void validateIndex(int index) {
+    private void validateIndex(int index) {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("Выход за границы списка. Переданный индекс = " + index + " Размер списка = " + count);
         }
@@ -38,7 +42,9 @@ public class SinglyLinkedList<T> {
         return count;
     }
 
-    public T getHeadData(ListItem<T> head) {
+    public T getHeadData() {
+        validateNotEmpty();
+
         return head.getData();
     }
 
@@ -136,7 +142,7 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean removeByData(T data) {
-        if (isEmpty()) {
+        if (count == 0) {
             return false;
         }
 
@@ -167,14 +173,12 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeFirstElement() {
+        validateNotEmpty();
+
         return removeElement(0);
     }
 
     public void reverseList() {
-        if (isEmpty()) {
-            return;
-        }
-
         int i = 0;
         ListItem<T> prevItem = null;
         ListItem<T> item = head;
@@ -192,22 +196,18 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> copyList() {
-        int i = 0;
-        ListItem<T> prevItem = head;
-        ListItem<T> item = head;
-
-        ListItem<T> newItem = new ListItem<>(item.getData(), item.getNext());
-
-        SinglyLinkedList<T> newList = new SinglyLinkedList<>(newItem);
-
-        item = item.getNext();
-
-        while (i < count) {
-            newItem = new ListItem<>(item.getData(), item.getNext());
-            item = item.getNext();
-            i++;
+        if (this.count == 0) {
+            return new SinglyLinkedList<>(null, 0);
         }
 
-        return newList;
+        ListItem<T> newHead = new ListItem<>(head.getData(), null);
+        ListItem<T> prevItem = newHead;
+
+        for (ListItem<T> item = head.getNext(); item != null; item = item.getNext(), prevItem = prevItem.getNext()) {
+            ListItem<T> newItem = new ListItem<>(item.getData(), null);
+            prevItem.setNext(newItem);
+        }
+
+        return new SinglyLinkedList<>(newHead);
     }
 }

@@ -19,18 +19,8 @@ public class SinglyLinkedList<E> {
     private void validateIndex(int index) {
         if (index < 0 || index >= count) {
             throw new IndexOutOfBoundsException("Переданный индекс = " + index
-                    + ". Индекс должен быть не меньше 0 и строго меньше " + count);
+                    + ". Индекс должен быть не меньше 0 и строго меньше " + count + '.');
         }
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public E getHeadData() {
-        validateNotEmpty();
-
-        return head.getData();
     }
 
     private ListItem<E> getCurrentItemByIndex(int index) {
@@ -48,19 +38,6 @@ public class SinglyLinkedList<E> {
         return item;
     }
 
-    public E getData(int index) {
-        return getCurrentItemByIndex(index).getData();
-    }
-
-    public E setData(int index, E data) {
-        ListItem<E> item = getCurrentItemByIndex(index);
-
-        E removedData = item.getData();
-        item.setData(data);
-
-        return removedData;
-    }
-
     private ListItem<E> getPreviousItemByIndex(int index) {
         int i = 0;
         ListItem<E> currentItem = head;
@@ -73,6 +50,29 @@ public class SinglyLinkedList<E> {
         }
 
         return previousItem;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public E getHeadData() {
+        validateNotEmpty();
+
+        return head.getData();
+    }
+
+    public E getData(int index) {
+        return getCurrentItemByIndex(index).getData();
+    }
+
+    public E setData(int index, E data) {
+        ListItem<E> item = getCurrentItemByIndex(index);
+
+        E removedData = item.getData();
+        item.setData(data);
+
+        return removedData;
     }
 
     public E remove(int index) {
@@ -99,7 +99,7 @@ public class SinglyLinkedList<E> {
     public void add(int index, E data) {
         if (index < 0 || index > count) {
             throw new IndexOutOfBoundsException("Переданный индекс = " + index
-                    + ". Индекс должен быть не меньше 0 и не больше " + count);
+                    + ". Индекс должен быть не меньше 0 и не больше " + count + '.');
         }
 
         if (index == 0) {
@@ -159,7 +159,7 @@ public class SinglyLinkedList<E> {
         ListItem<E> previousItem = null;
         ListItem<E> currentItem = head;
 
-        while (currentItem.getNext() != null) {
+        while (currentItem != null) {
             ListItem<E> nextItem = currentItem.getNext();
             currentItem.setNext(previousItem);
             previousItem = currentItem;

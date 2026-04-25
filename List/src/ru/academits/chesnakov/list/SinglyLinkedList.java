@@ -35,20 +35,6 @@ public class SinglyLinkedList<E> {
         return item;
     }
 
-    private ListItem<E> getPreviousItemByIndex(int index) {
-        int i = 0;
-        ListItem<E> currentItem = head;
-        ListItem<E> previousItem = null;
-
-        while (i != index) {
-            previousItem = currentItem;
-            currentItem = currentItem.getNext();
-            i++;
-        }
-
-        return previousItem;
-    }
-
     public int getCount() {
         return count;
     }
@@ -83,7 +69,7 @@ public class SinglyLinkedList<E> {
             return removeFirst();
         }
 
-        ListItem<E> previousItem = getPreviousItemByIndex(index);
+        ListItem<E> previousItem = getCurrentItemByIndex(index - 1);
         ListItem<E> currentItem = previousItem.getNext();
 
         previousItem.setNext(currentItem.getNext());
@@ -109,7 +95,7 @@ public class SinglyLinkedList<E> {
             return;
         }
 
-        ListItem<E> previousItem = getPreviousItemByIndex(index);
+        ListItem<E> previousItem = getCurrentItemByIndex(index - 1);
         ListItem<E> currentItem = previousItem.getNext();
 
         previousItem.setNext(new ListItem<>(data, currentItem));
@@ -178,12 +164,11 @@ public class SinglyLinkedList<E> {
 
         SinglyLinkedList<E> newList = new SinglyLinkedList<>();
 
-        int i = 0;
-
         for (ListItem<E> sourceItem = head; sourceItem != null; sourceItem = sourceItem.getNext()) {
-            newList.add(i, sourceItem.getData());
-            i++;
+            newList.addFirst(sourceItem.getData());
         }
+
+        newList.reverse();
 
         return newList;
     }

@@ -164,19 +164,15 @@ public class SinglyLinkedList<E> {
 
         SinglyLinkedList<E> newList = new SinglyLinkedList<>();
 
-        ListItem<E> lastItem = new ListItem<>(this.getHeadData());
+        ListItem<E> lastItem = new ListItem<>(getHeadData());
 
         newList.head = lastItem;
 
-        newList.count++;
+        newList.count = count;
 
         for (ListItem<E> sourceItem = head.getNext(); sourceItem != null; sourceItem = sourceItem.getNext()) {
-            ListItem<E> newItem = new ListItem<>(sourceItem.getData());
-
-            lastItem.setNext(newItem);
+            lastItem.setNext(new ListItem<>(sourceItem.getData()));
             lastItem = lastItem.getNext();
-
-            newList.count++;
         }
 
         return newList;

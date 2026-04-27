@@ -23,7 +23,7 @@ public class SinglyLinkedList<E> {
         }
     }
 
-    private ListItem<E> getCurrentItemByIndex(int index) {
+    private ListItem<E> getItemByIndex(int index) {
         int i = 0;
         ListItem<E> item = head;
 
@@ -48,13 +48,13 @@ public class SinglyLinkedList<E> {
     public E getData(int index) {
         validateIndex(index);
 
-        return getCurrentItemByIndex(index).getData();
+        return getItemByIndex(index).getData();
     }
 
     public E setData(int index, E data) {
         validateIndex(index);
 
-        ListItem<E> item = getCurrentItemByIndex(index);
+        ListItem<E> item = getItemByIndex(index);
 
         E removedData = item.getData();
         item.setData(data);
@@ -69,7 +69,7 @@ public class SinglyLinkedList<E> {
             return removeFirst();
         }
 
-        ListItem<E> previousItem = getCurrentItemByIndex(index - 1);
+        ListItem<E> previousItem = getItemByIndex(index - 1);
         ListItem<E> currentItem = previousItem.getNext();
 
         previousItem.setNext(currentItem.getNext());
@@ -95,7 +95,7 @@ public class SinglyLinkedList<E> {
             return;
         }
 
-        ListItem<E> previousItem = getCurrentItemByIndex(index - 1);
+        ListItem<E> previousItem = getItemByIndex(index - 1);
         ListItem<E> currentItem = previousItem.getNext();
 
         previousItem.setNext(new ListItem<>(data, currentItem));
@@ -164,11 +164,20 @@ public class SinglyLinkedList<E> {
 
         SinglyLinkedList<E> newList = new SinglyLinkedList<>();
 
-        for (ListItem<E> sourceItem = head; sourceItem != null; sourceItem = sourceItem.getNext()) {
-            newList.addFirst(sourceItem.getData());
-        }
+        ListItem<E> lastItem = new ListItem<>(this.getHeadData());
 
-        newList.reverse();
+        newList.head = lastItem;
+
+        newList.count++;
+
+        for (ListItem<E> sourceItem = head.getNext(); sourceItem != null; sourceItem = sourceItem.getNext()) {
+            ListItem<E> newItem = new ListItem<>(sourceItem.getData());
+
+            lastItem.setNext(newItem);
+            lastItem = lastItem.getNext();
+
+            newList.count++;
+        }
 
         return newList;
     }
@@ -181,9 +190,7 @@ public class SinglyLinkedList<E> {
 
         StringBuilder stringBuilder = new StringBuilder("{");
 
-        ListItem<E> item = head;
-
-        for (; item != null; item = item.getNext()) {
+        for (ListItem<E> item = head; item != null; item = item.getNext()) {
             stringBuilder.append(item.getData())
                     .append(", ");
         }

@@ -5,6 +5,7 @@ import java.util.*;
 public class ArrayList<E> implements List<E> {
     private E[] items;
     private int size;
+    private int modCount;
 
     public ArrayList(int size) {
         this.size = size;
@@ -32,11 +33,36 @@ public class ArrayList<E> implements List<E> {
         return false;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return MyIterator();
+    private class MyIterator implements Iterator<E> {
+        private int currentIndex = -1;
+        private final int iteratorModCount = ArrayList.this.modCount;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex + 1 < size;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("Выход за размеры коллекции. Текущий размер коллекции = " + size);
+            }
+
+            if (iteratorModCount != ArrayList.this.modCount) {
+                throw new ConcurrentModificationException("За время обхода в коллекцию добавили или удалили элементы." +
+                        "Текущее количество модификаций = " + ArrayList.this.modCount);
+            }
+
+            currentIndex++;
+            return items[currentIndex];
+        }
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
+//TODO: Тут закончил
     @Override
     public Object[] toArray() {
         return new Object[0];

@@ -62,32 +62,83 @@ public class ArrayList<E> implements List<E> {
     public Iterator<E> iterator() {
         return new MyIterator();
     }
-//TODO: Тут закончил
+
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(items, size);
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return null;
+        if (size > a.length) {
+            //noinspection unchecked
+            return (T[]) Arrays.copyOf(items, size, a.getClass());
+        }
+
+        //noinspection SuspiciousSystemArraycopy
+        System.arraycopy(items, 0, a, 0, size);
+
+        if (size < a.length) {
+            a[size] = null;
+        }
+
+        return a;
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+        if (size >= items.length) {
+            increaseCapacity();
+        }
+
+        items[size] = e;
+        size++;
+        modCount++;
+
+        return true;
+    }
+
+    private void increaseCapacity() {
+        items = Arrays.copyOf(items, size * 2);
     }
 
     @Override
     public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(o, items[i])) {
+                if (i == size - 1) {
+                    items[i] = null;
+
+                } else {
+                    while (i < size - 1) {
+                        items[i] = items[i + 1];
+                        i++;
+                    }
+
+                    items[size - 1] = null;
+                }
+
+                size--;
+                modCount++;
+
+                return true;
+            }
+        }
+
         return false;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
-    }
+        for (Object o : c) {
+            if (!this.contains(o)) {
+                return false;
+            }
+        }
 
+        return true;
+    }
+//TODO: Тут остановился
     @Override
     public boolean addAll(Collection<? extends E> c) {
         return false;

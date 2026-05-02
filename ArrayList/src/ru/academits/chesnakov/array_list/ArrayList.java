@@ -22,10 +22,16 @@ public class ArrayList<E> implements List<E> {
         return size == 0;
     }
 
+    private void validateIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Выход за пределы массива. Переданный индекс = " + index);
+        }
+    }
+
     @Override
     public boolean contains(Object o) {
         for (E e : items) {
-            if (Objects.equals(e, 0)) {
+            if (Objects.equals(e, o)) {
                 return true;
             }
         }
@@ -138,40 +144,116 @@ public class ArrayList<E> implements List<E> {
 
         return true;
     }
-//TODO: Тут остановился
+
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return false;
+        if (c.isEmpty()) {
+            return false;
+        }
+
+        for (E e : c) {
+            this.add(e);
+        }
+
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Выход за пределы массива. Переданный индекс = " + index);
+        }
+
+        if (c.isEmpty()) {
+            return false;
+        }
+
+        while (items.length < size + c.size()) {
+            increaseCapacity();
+        }
+
+        for (int i = size - 1; i >= index; i--) {
+            items[i + c.size()] = items[i];
+        }
+
+        int i = index;
+
+        for (E e : c) {
+            items[i] = e;
+            i++;
+        }
+
+        size += c.size();
+        modCount++;
+
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (this.isEmpty()) {
+            return false;
+        }
+
+        boolean changed = false;
+
+        for (int i = 0; i < size; i++) {
+            if (c.contains(items[i])) {
+                remove(items[i]);
+
+                changed = true;
+                i--;
+            }
+        }
+
+        return changed;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        if (this.isEmpty()) {
+            return false;
+        }
+
+        boolean changed = false;
+
+        for (int i = 0; i < size; i++) {
+            if (!c.contains(items[i])) {
+                remove(items[i]);
+
+                changed = true;
+                i--;
+            }
+        }
+
+        return changed;
     }
 
     @Override
     public void clear() {
+        for (int i = 0; i < size; i++) {
+            items[i] = null;
+        }
 
+        size = 0;
+        modCount++;
     }
 
     @Override
     public E get(int index) {
-        return null;
+        validateIndex(index);
+
+        return items[index];
     }
 
     @Override
     public E set(int index, E element) {
-        return null;
+        validateIndex(index);
+
+        E oldItem = items[index];
+        items[index] = element;
+
+        return oldItem;
     }
 
     @Override
@@ -194,16 +276,19 @@ public class ArrayList<E> implements List<E> {
         return 0;
     }
 
+    // не нужно
     @Override
     public ListIterator<E> listIterator() {
         return null;
     }
 
+    // не нужно
     @Override
     public ListIterator<E> listIterator(int index) {
         return null;
     }
 
+    // не нужно
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return List.of();

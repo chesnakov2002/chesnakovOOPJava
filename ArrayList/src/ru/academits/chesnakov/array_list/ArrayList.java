@@ -138,20 +138,67 @@ public class ArrayList<E> implements List<E> {
 
         return true;
     }
-//TODO: Тут остановился
+
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return false;
+        if (c.isEmpty()) {
+            return false;
+        }
+
+        for (E e : c) {
+            this.add(e);
+        }
+
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Выход за пределы массива. Переданный индекс = " + index);
+        }
+
+        if (c.isEmpty()) {
+            return false;
+        }
+
+        while (items.length < size + c.size()) {
+            increaseCapacity();
+        }
+
+        for (int i = size - 1; i >= index; i--) {
+            items[i + c.size()] = items[i];
+        }
+
+        int i = index;
+
+        for (E e : c) {
+            items[i] = e;
+            i++;
+        }
+
+        size += c.size();
+        modCount++;
+
+        return true;
     }
+    //TODO: Тут закончил
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (this.isEmpty()) {
+            return false;
+        }
+
+        for (Object e : c) {
+            if (!this.contains(e)) {
+                return false;
+            }
+        }
+
+
+
+        return true;
     }
 
     @Override
@@ -194,16 +241,19 @@ public class ArrayList<E> implements List<E> {
         return 0;
     }
 
+    // не нужно
     @Override
     public ListIterator<E> listIterator() {
         return null;
     }
 
+    // не нужно
     @Override
     public ListIterator<E> listIterator(int index) {
         return null;
     }
 
+    // не нужно
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return List.of();

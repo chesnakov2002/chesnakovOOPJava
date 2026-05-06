@@ -3,8 +3,6 @@ package ru.academits.chesnakov.temperature.controller;
 import ru.academits.chesnakov.temperature.model.Converter;
 import ru.academits.chesnakov.temperature.view.View;
 
-import javax.swing.*;
-
 public class Controller {
     private final Converter converter;
     private final View view;
@@ -16,7 +14,7 @@ public class Controller {
         view.setController(this);
     }
 
-    public void convert(JTextField celsiusTemperatureArea) {
+    public void convert() {
 
     }
 

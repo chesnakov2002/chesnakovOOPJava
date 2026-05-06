@@ -40,7 +40,7 @@ public class Main {
 
         System.out.println("Текущий список = " + list1);
 
-        list1.reverseList();
+        list1.reverse();
 
         System.out.println("Список после разворота = " + list1);
 

@@ -23,33 +23,16 @@ public class SinglyLinkedList<E> {
         }
     }
 
-    private ListItem<E> getCurrentItemByIndex(int index) {
-        validateIndex(index);
-
+    private ListItem<E> getItemByIndex(int index) {
         int i = 0;
         ListItem<E> item = head;
 
         while (i != index) {
             item = item.getNext();
             i++;
-
         }
 
         return item;
-    }
-
-    private ListItem<E> getPreviousItemByIndex(int index) {
-        int i = 0;
-        ListItem<E> currentItem = head;
-        ListItem<E> previousItem = null;
-
-        while (i != index) {
-            previousItem = currentItem;
-            currentItem = currentItem.getNext();
-            i++;
-        }
-
-        return previousItem;
     }
 
     public int getCount() {
@@ -63,11 +46,15 @@ public class SinglyLinkedList<E> {
     }
 
     public E getData(int index) {
-        return getCurrentItemByIndex(index).getData();
+        validateIndex(index);
+
+        return getItemByIndex(index).getData();
     }
 
     public E setData(int index, E data) {
-        ListItem<E> item = getCurrentItemByIndex(index);
+        validateIndex(index);
+
+        ListItem<E> item = getItemByIndex(index);
 
         E removedData = item.getData();
         item.setData(data);
@@ -82,10 +69,10 @@ public class SinglyLinkedList<E> {
             return removeFirst();
         }
 
-        ListItem<E> prevItem = getPreviousItemByIndex(index);
-        ListItem<E> currentItem = prevItem.getNext();
+        ListItem<E> previousItem = getItemByIndex(index - 1);
+        ListItem<E> currentItem = previousItem.getNext();
 
-        prevItem.setNext(currentItem.getNext());
+        previousItem.setNext(currentItem.getNext());
         count--;
 
         return currentItem.getData();
@@ -108,7 +95,7 @@ public class SinglyLinkedList<E> {
             return;
         }
 
-        ListItem<E> previousItem = getPreviousItemByIndex(index);
+        ListItem<E> previousItem = getItemByIndex(index - 1);
         ListItem<E> currentItem = previousItem.getNext();
 
         previousItem.setNext(new ListItem<>(data, currentItem));
@@ -126,7 +113,6 @@ public class SinglyLinkedList<E> {
 
         while (currentItem != null) {
             if (Objects.equals(data, currentItem.getData())) {
-
                 if (previousItem == null) {
                     removeFirst();
 
@@ -148,14 +134,16 @@ public class SinglyLinkedList<E> {
     }
 
     public E removeFirst() {
-        ListItem<E> itemToDelete = head;
+        validateNotEmpty();
+
+        E dataToDelete = head.getData();
         head = head.getNext();
         count--;
 
-        return itemToDelete.getData();
+        return dataToDelete;
     }
 
-    public void reverseList() {
+    public void reverse() {
         ListItem<E> previousItem = null;
         ListItem<E> currentItem = head;
 
@@ -176,11 +164,15 @@ public class SinglyLinkedList<E> {
 
         SinglyLinkedList<E> newList = new SinglyLinkedList<>();
 
-        int i = 0;
+        ListItem<E> lastItem = new ListItem<>(getHeadData());
 
-        for (ListItem<E> sourceItem = head; sourceItem != null; sourceItem = sourceItem.getNext()) {
-            newList.add(i, sourceItem.getData());
-            i++;
+        newList.head = lastItem;
+
+        newList.count = count;
+
+        for (ListItem<E> sourceItem = head.getNext(); sourceItem != null; sourceItem = sourceItem.getNext()) {
+            lastItem.setNext(new ListItem<>(sourceItem.getData()));
+            lastItem = lastItem.getNext();
         }
 
         return newList;
@@ -194,15 +186,13 @@ public class SinglyLinkedList<E> {
 
         StringBuilder stringBuilder = new StringBuilder("{");
 
-        ListItem<E> item = head;
-
-        for (; item.getNext() != null; item = item.getNext()) {
+        for (ListItem<E> item = head; item != null; item = item.getNext()) {
             stringBuilder.append(item.getData())
                     .append(", ");
         }
 
-        stringBuilder.append(item.getData())
-                .append("}");
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length())
+                .append('}');
 
         return stringBuilder.toString();
     }

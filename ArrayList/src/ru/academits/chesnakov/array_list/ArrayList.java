@@ -11,7 +11,6 @@ public class ArrayList<E> implements List<E> {
         this.size = size;
     }
 
-
     @Override
     public int size() {
         return size;
@@ -258,22 +257,73 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public void add(int index, E element) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Выход за пределы массива. Переданный индекс = " + index);
+        }
 
+        if (index == size) {
+            add(element);
+
+            return;
+        }
+
+        if (size == items.length) {
+            increaseCapacity();
+        }
+
+        for (int i = size; i > index; i--) {
+            items[i] = items[i - 1];
+
+        }
+
+        items[index] = element;
+
+        size++;
+        modCount++;
     }
 
     @Override
     public E remove(int index) {
-        return null;
+        validateIndex(index);
+
+        E itemToDelete = items[index];
+
+        if (index == size - 1) {
+            items[index] = null;
+        } else {
+            for (int i = index; i < size - 1; i++) {
+                items[i] = items[i + 1];
+            }
+
+            items[size - 1] = null;
+        }
+
+        size--;
+        modCount++;
+
+        return itemToDelete;
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(items[i], o)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        for (int i = size - 1; i >= 0; i--) {
+            if (Objects.equals(items[i], o)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     // не нужно

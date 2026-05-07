@@ -3,12 +3,25 @@ package ru.academits.chesnakov.array_list;
 import java.util.*;
 
 public class ArrayList<E> implements List<E> {
-    private E[] items;
+    private Object[] items;
     private int size;
     private int modCount;
 
-    public ArrayList(int size) {
-        this.size = size;
+    public ArrayList(int arrayLength) {
+        items = new Object[arrayLength];
+    }
+
+    public ArrayList(Collection<? extends E> c) {
+        items = new Object[c.size()];
+
+        int i = 0;
+
+        for (E e : c) {
+            items[i] = e;
+            i++;
+        }
+
+        size = c.size();
     }
 
     @Override
@@ -29,7 +42,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        for (E e : items) {
+        for (Object e : items) {
             if (Objects.equals(e, o)) {
                 return true;
             }
@@ -59,7 +72,8 @@ public class ArrayList<E> implements List<E> {
             }
 
             currentIndex++;
-            return items[currentIndex];
+            //noinspection unchecked
+            return (E) items[currentIndex];
         }
     }
 
@@ -242,14 +256,16 @@ public class ArrayList<E> implements List<E> {
     public E get(int index) {
         validateIndex(index);
 
-        return items[index];
+        //noinspection unchecked
+        return (E) items[index];
     }
 
     @Override
     public E set(int index, E element) {
         validateIndex(index);
 
-        E oldItem = items[index];
+        //noinspection unchecked
+        E oldItem = (E) items[index];
         items[index] = element;
 
         return oldItem;
@@ -286,7 +302,8 @@ public class ArrayList<E> implements List<E> {
     public E remove(int index) {
         validateIndex(index);
 
-        E itemToDelete = items[index];
+        //noinspection unchecked
+        E itemToDelete = (E) items[index];
 
         if (index == size - 1) {
             items[index] = null;
@@ -342,5 +359,24 @@ public class ArrayList<E> implements List<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return List.of();
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0) {
+            return "{}";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder("{");
+
+        for (E e : this) {
+            stringBuilder.append(e)
+                    .append(", ");
+        }
+
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length())
+                .append('}');
+
+        return stringBuilder.toString();
     }
 }

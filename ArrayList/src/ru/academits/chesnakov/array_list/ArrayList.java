@@ -153,15 +153,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        if (c.isEmpty()) {
-            return false;
-        }
-
-        for (E e : c) {
-            add(e);
-        }
-
-        return true;
+        return addAll(size, c);
     }
 
     @Override
@@ -181,8 +173,8 @@ public class ArrayList<E> implements List<E> {
 
         int i = index;
 
-        for (E e : c) {
-            items[i] = e;
+        for (E item : c) {
+            items[i] = item;
             i++;
         }
 
@@ -198,18 +190,17 @@ public class ArrayList<E> implements List<E> {
             return false;
         }
 
-        boolean changed = false;
+        boolean isChanged = false;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = size - 1; i >= 0; i--) {
             if (c.contains(items[i])) {
-                remove(items[i]);
+                remove(i);
 
-                changed = true;
-                i--;
+                isChanged = true;
             }
         }
 
-        return changed;
+        return isChanged;
     }
 
     @Override
@@ -220,12 +211,11 @@ public class ArrayList<E> implements List<E> {
 
         boolean isChanged = false;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = size - 1; i >= 0; i--) {
             if (!c.contains(items[i])) {
-                remove(items[i]);
+                remove(i);
 
                 isChanged = true;
-                i--;
             }
         }
 
@@ -234,6 +224,10 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public void clear() {
+        if (isEmpty()) {
+            return;
+        }
+
         Arrays.fill(items, 0, size, null);
 
         size = 0;
@@ -248,24 +242,24 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public E set(int index, E element) {
+    public E set(int index, E item) {
         validateIndex(index);
 
         E oldItem = items[index];
-        items[index] = element;
+        items[index] = item;
 
         return oldItem;
     }
 
     @Override
-    public void add(int index, E element) {
+    public void add(int index, E item) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Выход за пределы коллекции." +
                     " Переданный индекс = " + index + ". Максимальный возможный индекс = " + size);
         }
 
         if (index == size) {
-            add(element);
+            add(item);
 
             return;
         }
@@ -276,7 +270,7 @@ public class ArrayList<E> implements List<E> {
 
         System.arraycopy(items, index, items, index + 1, size - index);
 
-        items[index] = element;
+        items[index] = item;
 
         size++;
         modCount++;
@@ -339,14 +333,39 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        ArrayList<?> arrayList = (ArrayList<?>) o;
-        return size == arrayList.size && modCount == arrayList.modCount && Objects.deepEquals(items, arrayList.items);
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        //noinspection unchecked
+        ArrayList<E> arrayList = (ArrayList<E>) o;
+
+        if (size != arrayList.size) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (!Objects.equals(items[i], arrayList.items[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(items), size, modCount);
+        int result = 1;
+
+        for (int i = 0; i < size; i++) {
+            result = 37 * result + Objects.hashCode(items[i]);
+        }
+
+        return result;
     }
 
     @Override
@@ -357,8 +376,8 @@ public class ArrayList<E> implements List<E> {
 
         StringBuilder stringBuilder = new StringBuilder("{");
 
-        for (E e : this) {
-            stringBuilder.append(e)
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(items[i])
                     .append(", ");
         }
 
@@ -368,4 +387,3 @@ public class ArrayList<E> implements List<E> {
         return stringBuilder.toString();
     }
 }
-//TODO: Исправил 14 пунктов

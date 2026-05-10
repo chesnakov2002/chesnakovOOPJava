@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Размер списка1 = " + list1.size());
         System.out.println("Список1 = " + list1);
 
-        System.out.println("В списке1 содержиться элемент 8 = " + list1.contains(8));
+        System.out.println("В списке1 содержится элемент 8 = " + list1.contains(8));
 
         Integer number = 4;
 
@@ -52,7 +52,7 @@ public class Main {
         if (list1.addAll(list3)) {
             System.out.println("Добавление всех элементов списка3 в список1 прошло успешно");
         } else {
-            System.out.println("Не удалось добавть элементы списка3 в список1, список пуст");
+            System.out.println("Не удалось добавить элементы списка3 в список1, список пуст");
         }
 
         List<Integer> list5 = new ArrayList<>(Arrays.asList(5, 8, 10));

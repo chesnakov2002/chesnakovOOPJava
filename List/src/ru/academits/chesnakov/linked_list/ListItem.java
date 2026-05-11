@@ -1,4 +1,4 @@
-package ru.academits.chesnakov.list;
+package ru.academits.chesnakov.linked_list;
 
 class ListItem<E> {
     private E data;

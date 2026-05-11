@@ -1,6 +1,6 @@
-package ru.academits.chesnakov.list_main;
+package ru.academits.chesnakov.linked_list_main;
 
-import ru.academits.chesnakov.list.SinglyLinkedList;
+import ru.academits.chesnakov.linked_list.SinglyLinkedList;
 
 public class Main {
     public static void main(String[] args) {

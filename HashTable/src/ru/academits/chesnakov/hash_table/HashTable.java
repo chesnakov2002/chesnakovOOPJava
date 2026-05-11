@@ -1,14 +1,34 @@
-package ru.academits.chesnakov;
+package ru.academits.chesnakov.hash_table;
+
+import ru.academits.chesnakov.linked_list.SinglyLinkedList;
 
 import java.util.Collection;
 import java.util.Iterator;
 
 public class HashTable<E> implements Collection<E> {
-    private
+    private SinglyLinkedList<E>[] array;
+    private int size;
+
+    public HashTable() {
+        this(16);
+    }
+
+    public HashTable(Collection<? extends E> c) {
+        this(Math.max(16, (int) (c.size() / 0.75) + 1));
+
+        addAll(c);
+    }
+
+    public HashTable(int capacity) {
+        //noinspection unchecked
+        array = (SinglyLinkedList<E>[]) new SinglyLinkedList[capacity];
+        size = 0;
+
+    }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override

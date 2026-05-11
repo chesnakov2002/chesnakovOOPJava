@@ -1,4 +1,4 @@
-package ru.academits.chesnakov.list;
+package ru.academits.chesnakov.linked_list;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;

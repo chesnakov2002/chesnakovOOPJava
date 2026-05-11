@@ -9,8 +9,8 @@ public class ArrayList<E> implements List<E> {
 
     public ArrayList(int capacity) {
         if (capacity < 0) {
-            throw new IllegalArgumentException("Вместимость коллекции не может быть меньше нуля." +
-                    " Переданная вместимость коллекции = " + capacity);
+            throw new IllegalArgumentException("Вместимость списка не может быть меньше нуля." +
+                    " Переданная вместимость списка = " + capacity);
         }
 
         //noinspection unchecked
@@ -36,13 +36,17 @@ public class ArrayList<E> implements List<E> {
 
     private void validateIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Выход за пределы коллекции." +
+            throw new IndexOutOfBoundsException("Выход за пределы списка." +
                     " Переданный индекс = " + index + ". Максимальный индекс = " + (size - 1));
         }
     }
 
     private void increaseCapacity() {
-        items = Arrays.copyOf(items, items.length * 2 + 1);
+        if (items.length == 0) {
+            items = Arrays.copyOf(items, 1);
+        } else {
+            items = Arrays.copyOf(items, items.length * 2);
+        }
     }
 
     private void ensureCapacity(int capacity) {
@@ -74,11 +78,11 @@ public class ArrayList<E> implements List<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new NoSuchElementException("Выход за размеры коллекции. Текущий размер коллекции = " + size);
+                throw new NoSuchElementException("Выход за размеры списка. Текущий размер списка = " + size);
             }
 
             if (initialModCount != modCount) {
-                throw new ConcurrentModificationException("За время обхода в коллекцию добавили или удалили элементы." +
+                throw new ConcurrentModificationException("За время обхода в список добавили или удалили элементы." +
                         "Текущее количество модификаций = " + modCount);
             }
 
@@ -159,7 +163,7 @@ public class ArrayList<E> implements List<E> {
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Выход за пределы коллекции." +
+            throw new IndexOutOfBoundsException("Выход за пределы списка." +
                     " Переданный индекс = " + index + "Максимальный возможный индекс = " + size);
         }
 
@@ -169,7 +173,7 @@ public class ArrayList<E> implements List<E> {
 
         ensureCapacity(size + c.size());
 
-        System.arraycopy(items, index, items, c.size() + index, size - index);
+        System.arraycopy(items, index, items, index + c.size(), size - index);
 
         int i = index;
 
@@ -254,7 +258,7 @@ public class ArrayList<E> implements List<E> {
     @Override
     public void add(int index, E item) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Выход за пределы коллекции." +
+            throw new IndexOutOfBoundsException("Выход за пределы списка." +
                     " Переданный индекс = " + index + ". Максимальный возможный индекс = " + size);
         }
 
